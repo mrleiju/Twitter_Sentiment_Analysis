@@ -1,17 +1,39 @@
 import nltk
 import string
-
+import re
 
 class PreProcessor:
     def __init__(self):
-        text = nltk.corpus.words.words('en')
-        self.text_dict = dict()
-        for word in text:
-            if not self.text_dict.has_key(word):
-                self.text_dict[word] = True
+        self.slangs = dict()
+        
+        f = open("internetSlangs.txt", 'r')
+        lines = f.readlines()
+        for line in lines:
+            sen= line.split(",")
+            if not self.slangs.has_key(sen[0]):
+                self.slangs[sen[0]] = sen[-1]
+    
 
     def process(self, words):
-        for word in words:
-            if (not self.text_dict.has_key(word)) or word.isdigit() or (word in string.punctuation):
-                words.remove(word)
-        return map(string.lower, words)
+            #http & @ & #
+            for word in words:    
+                if re.search(r"[http]+://[^\s]*|@[^\s]*|#[^\s]*", word)!= None:
+                    words.remove(word)
+                    
+            #slang words
+            for i, word in enumerate(words):
+                if self.slangs.has_key(word):
+                    words.insert(i, self.slangs[word])
+                    words.pop(i+1)
+            words = re.findall(r"[\w]+|[:)-;=)(>o3Dx^\/*w8~_T|]+", ' '.join(words))
+            
+            #digit & punctuation
+            for word in words: 
+                if re.search(r"[0-9_-]+", word) != None or word in ['.',',',':',';','*','-',')','(','\\','/']:
+                    words.remove(word)
+    
+            #lowercase
+            return map(string.lower, words)
+
+
+    
