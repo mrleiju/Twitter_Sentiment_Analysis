@@ -7,9 +7,10 @@ from tqdm import tqdm_notebook as tqdm
 
 from Preprocessor import PreProcessor
 
-# Tokenize words and keep emoticons
+
 class DataLoader(self):
     def __init__(self):
+        # Tokenize words and keep emoticons
         self.posFeatures = []
         self.negFeatures = []
         self.pp = PreProcessor()
@@ -38,6 +39,7 @@ class DataLoader(self):
 
         return posFeatures_pos, negFeatures_pos
 
+    # Get train&test data
     def get_ratio_data(posdata, negdata, r):
         posCutoff = int(math.floor(len(posdata) * r))
         negCutoff = int(math.floor(len(negdata) * r))
