@@ -8,7 +8,7 @@ from tqdm import tqdm_notebook as tqdm
 from Preprocessor import PreProcessor
 
 
-class DataLoader(self):
+class DataLoader:
     def __init__(self):
         # Tokenize words and keep emoticons
         self.posFeatures = []
