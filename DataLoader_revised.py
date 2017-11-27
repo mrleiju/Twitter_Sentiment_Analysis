@@ -4,7 +4,7 @@ import nltk
 import string
 import math
 from tqdm import tqdm_notebook as tqdm
-
+from random import shuffle
 from Preprocessor import PreProcessor
 
 
@@ -23,6 +23,8 @@ class DataLoader:
                 elif row['Sentiment'] == '0':
                     negWord = re.findall(r"[http]+://[^\s]*|@[^\s]*|#[^\s]*|[\w']+|[:)-;=)(>o3Dx^\/*w8~_T|]+", row["SentimentText"].rstrip())
                     self.negFeatures.append([self.pp.process(negWord), 'neg'])
+        shuffle(self.posFeatures)
+        shuffle(self.negFeatures)
 
     def get_data(self):
         return self.posFeatures, self.negFeatures
