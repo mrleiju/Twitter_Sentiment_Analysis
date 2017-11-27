@@ -94,4 +94,7 @@ class DataLoader:
         valFeatures = posdata[posCutoff:] + negdata[negCutoff:]
         
         return trainFeatures, valFeatures
+    
+    def bigram(self, words):
+        return list(nltk.bigrams(words))
 
