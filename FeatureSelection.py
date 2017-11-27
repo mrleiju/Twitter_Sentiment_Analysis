@@ -1,8 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-Created on Sat Nov  4 11:49:32 2017
-
 @author: chloezeng
 """
 
@@ -21,11 +19,11 @@ class FeatureSelection:
         word_fd = FreqDist()
         cond_word_fd = ConditionalFreqDist()
         for word in tqdm(self.posFeatures):
-            word_fd[word.lower()] += 1
-            cond_word_fd['pos'][word.lower()] += 1
+                word_fd[word] += 1
+                cond_word_fd['pos'][word] += 1
         for word in tqdm(self.negFeatures):
-            word_fd[word.lower()] += 1
-            cond_word_fd['neg'][word.lower()] += 1
+                word_fd[word] += 1
+                cond_word_fd['neg'][word] += 1
             
         #finds the number of positive and negative words, as well as the total number of words
         pos_word_count = cond_word_fd['pos'].N()
